@@ -4,7 +4,7 @@ import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class SortTestIntegers {
+class SortTest {
     Comparator<Integer> comparator = (x, y) -> x > y? 1: x < y? -1: 0;
 
     @Test
@@ -38,6 +38,17 @@ class SortTestIntegers {
         Arrays.sort(sortedList, comparator);
 
         assertArrayEquals(sortedList, list);
+    }
+
+    @Test
+    public void mergeSortTest() {
+        final Integer[] integerArray = generateRandomList(10).toArray(new Integer[10]);
+        Integer[] list = integerArray.clone();
+
+        Sort.mergeSort(integerArray, comparator);
+        Arrays.sort(list, comparator);
+
+        assertArrayEquals(integerArray, list);
     }
 
     private ArrayList<Integer> generateRandomList(int size) {
