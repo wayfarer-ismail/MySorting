@@ -62,6 +62,28 @@ class SortTest {
         assertArrayEquals(integerArray, list);
     }
 
+    @Test
+    public void quickSortTestList() {
+        List<Integer> list = generateRandomList(1000);
+        List<Integer> sortedList = new ArrayList<>(list);
+
+        Sort.quickSort(list, comparator);
+        sortedList.sort(Integer::compareTo);
+
+        assertEquals(sortedList, list);
+    }
+
+    @Test
+    public void quickSortTestArray() {
+        final Integer[] integerArray = generateRandomList(10).toArray(new Integer[10]);
+        Integer[] sortedArray = integerArray.clone();
+
+        Sort.quickSort(integerArray, comparator);
+        Arrays.sort(sortedArray, comparator);
+
+        assertArrayEquals(sortedArray, integerArray);
+    }
+
     private ArrayList<Integer> generateRandomList(int size) {
         ArrayList<Integer> al = new ArrayList<>(size);
         Random r = new Random();
