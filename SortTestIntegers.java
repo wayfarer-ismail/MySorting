@@ -41,7 +41,18 @@ class SortTest {
     }
 
     @Test
-    public void mergeSortTest() {
+    public void mergeSortTestList() {
+        List<Integer> list = generateRandomList(1000);
+        List<Integer> sortedList = new ArrayList<>(list);
+
+        Sort.mergeSort(list, comparator);
+        sortedList.sort(Integer::compareTo);
+
+        assertEquals(sortedList, list);
+    }
+
+    @Test
+    public void mergeSortTestArray() {
         final Integer[] integerArray = generateRandomList(10).toArray(new Integer[10]);
         Integer[] list = integerArray.clone();
 

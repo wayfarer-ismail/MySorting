@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
@@ -57,6 +58,52 @@ public class Sort <T> {
                     input[j-1] = temp;
                 }
             }
+        }
+    }
+
+    public static <T extends Comparable<T>> void mergeSort(final List<T> list, final Comparator<T> comparator) {
+        if (list == null || list.size() == 0) {
+            return;
+        }
+        mergeSortHelper(list, comparator, 0, list.size() - 1);
+    }
+
+    private static <T extends Comparable<T>> void mergeSortHelper(List<T> list, Comparator<T> comparator, int lo, int hi) {
+        if (lo < hi) {
+            int mid = (lo + hi) / 2;
+            mergeSortHelper(list, comparator, lo, mid);
+            mergeSortHelper(list, comparator, mid + 1, hi);
+            merge(list, comparator, lo, mid, hi);
+        }
+    }
+
+    private static <T extends Comparable<T>> void merge(List<T> list, Comparator<T> comparator, int lo, int mid, int hi) {
+        List<T> temp = new ArrayList<T>(list.size());
+
+        //copy into the aux array only the required elements
+        for (int i = lo; i <= hi; i++) {
+            temp.add(list.get(i));
+        }
+
+        int i = lo;
+        int j = mid + 1;
+        int k = lo;
+
+        while (i <= mid && j <= hi) {
+            if (comparator.compare(temp.get(i - lo), temp.get(j - lo)) <= 0) {
+                list.set(k, temp.get(i - lo));
+                i++;
+            } else {
+                list.set(k, temp.get(j - lo));
+                j++;
+            }
+            k++;
+        }
+
+        while (i <= mid) {
+            list.set(k, temp.get(i - lo));
+            k++;
+            i++;
         }
     }
 
